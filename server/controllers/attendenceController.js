@@ -135,17 +135,35 @@ exports.getTeamAttendanceSummary = async (req, res) => {
     try {
         let employeeId = req.params.id;
         console.log(employeeId) 
-        employeeId=JSON.parse(employeeId);
+        // employeeId=JSON.parse(employeeId);
         console.log('hi')
         let teams=await Team.find().populate('manager');
         console.log(teams)
+        console.log('hi')
         let temId;
+        console.log('hello1')
+        console.log(teams.length)
+        let Teams=[];
         for(let i=0;i<teams.length;i++){
-            console.log(teams[i].manager._id+" "+employeeId)
-            if(teams[i].manager._id==employeeId){
-                temId=teams[i]._id;
+            if(!teams[i].manager){
+                continue;
             }
+            console.log(teams[i]._id)
+            console.log('hi');
+            if(teams[i].manager._id==employeeId){
+                console.log('hello2');
+                console.log(teams[i]);
+                Teams.push(teams[i]);
+                temId=teams[i]._id;
+                break;
+                
+            }
+
+            console.log(teams[i]);            
         }
+            console.log('exited')
+        console.log('hello')
+        console.log(temId)
         if(!temId){
             return res.status(404).json({
                 status:'fail',

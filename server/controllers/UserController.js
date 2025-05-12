@@ -2,8 +2,21 @@ const Employee = require('../models/EmployeeModel');
 
 exports.getAllUsers=async(req, res) => {
     try {
-        const users = await Employee.find({});
-        console.log(users)
+         let users = await Employee.find({});
+        const para=req.query.employeeId;
+        if(para){
+            return res.status(200).json({
+                status: 'success',
+                data: users
+            });
+        }
+        console.log(para);
+         users = users.filter(user => {
+            const cleanDesignation = user.designation.trim().replace(/^"(.*)"$/, '$1'); // removes surrounding quotes
+            return cleanDesignation !== 'Admin' && cleanDesignation !== 'HR';
+        });
+
+        // console.log(users)
         if (!users) {
             return res.status(404).json({
                 status: 'fail',

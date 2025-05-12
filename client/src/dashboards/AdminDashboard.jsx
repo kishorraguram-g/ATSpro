@@ -28,6 +28,7 @@ const AdminDashboard = () => {
     designation: '',
     joiningDate: ''
   });
+  const employeeId = localStorage.getItem('employeeId');
 
   const departmentOptions = [
     { value: 'IT', label: 'IT' },
@@ -62,6 +63,9 @@ const AdminDashboard = () => {
         headers: {
           Authorization: `Bearer ${token}`,
           'Cache-Control': 'no-cache'
+        },
+        params: {
+          employeeId 
         }
       });
 

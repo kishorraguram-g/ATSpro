@@ -44,9 +44,11 @@ const AttendanceSummary = () => {
   const fetchAttendanceData = async () => {
     try {
       setLoading(true);
-      const employeeId = localStorage.getItem('employeeId');
+      let employeeId = localStorage.getItem('employeeId');
       const token = localStorage.getItem('token');
+      employeeId=JSON.parse(employeeId)
       const response = await axios.get(
+
         `http://localhost:4000/attendance/team-summary/${employeeId}`,
         {
           headers: {
