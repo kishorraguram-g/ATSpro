@@ -35,5 +35,3 @@ app.get('/', (req, res) => {
 
 // // Department/Staff routes - accessible by staff members
 app.use("/department", authMiddleware.staffProtect, departmentRouter);
-
-module.exports = app;
